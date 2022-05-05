@@ -1,0 +1,65 @@
+* project orig_domain
+** roots
+*** tld.com
+**** https://www.tld.com
+***** Notes
+****** Drupal(php), akamai
+***** interesting endpoints
+****** /acmeaccount/
+****** /configurator/api/
+***** Narrow Recon
+****** Service identification
+******* port scanning
+****** Stack identification
+******* tech profilers
+******* version or CVSS investigation
+****** Content discovery
+******* javascript analysis
+******* file / folder bruteforces
+****** Application feature analysis
+******* business logic flows
+****** Dynamic inputs
+******* file uploads
+******** PDF(XML), Doc, ++
+******** image
+******* interesting
+******** multi-part forms
+******** apis
+******** parameters referencing a path or url
+******** Errors!
+******* other dynamic parameters
+******* ++
+****** Questions to ask:
+******* how does the framework handle ""!`~*&^%_+(special) characters?
+******* How does the site reference a user?
+******* Are there multiple user roles?
+**** https://modle.tld.com
+***** Notes
+***** interesting endpoints
+***** Narrow Recon
+*** othcomp.com
+**** https://xapps.othcomp.com
+***** Notes
+***** interesting endpoints
+***** Narrow Recon
+**** https://xmail.othcomp.com
+***** Notes
+***** interesting endpoints
+***** Narrow Recon
+** recon
+*** ASNn
+**** 555619
+**** 30878
+*** Acquisitions
+**** Deepscale
+**** Maxwell Technologies
+**** Grolhmann Engineering
+**** Porbic
+**** Rivera Tool LLC
+**** SolarCity
+*** Linked Discovery
+*** Reverse WHOIS
+**** someproxyname/name/234285745
+* sources: 
+ - [The Bug Hunter's Methodology Full 2-hour Training by Jason HaddixY
+](https://www.youtube.com/watch?v=uKWu6yhnhbQ)
