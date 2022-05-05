@@ -50,13 +50,28 @@
 *** ASNn
 **** 555619
 **** 30878
+**** tools used
+ - https://bgp.hp.net (TODO: Integrate into parser, to use the aquisitions to grep the ASNs)
+ - amass, dns, scraping, pulls certs
+
+#+begin_src sh results output raw 
+for asn in [$asn_list]
+do
+amass intel --asn $asn
+done
+#+end_src 
+
+
 *** Acquisitions
+ - https://www.crunchbase.com (TODO: Parse data from crunchase < 2 years)
 **** Deepscale
 **** Maxwell Technologies
 **** Grolhmann Engineering
 **** Porbic
 **** Rivera Tool LLC
 **** SolarCity
+**** tools used
+ - https://www.crunchbase.com
 *** Linked Discovery
 *** Reverse WHOIS
 **** someproxyname/name/234285745
