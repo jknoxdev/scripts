@@ -60,5 +60,8 @@
 *** Linked Discovery
 *** Reverse WHOIS
 **** someproxyname/name/234285745
+**** tools used:
+ - [whoxy](https://www.whoxy.com)
+ - [DOMLink](https://github.com/vysecurity/DomLink)
 * sources: 
  - [The Bug Hunter's Methodology Full 2-hour Training by Jason HaddixY](https://www.youtube.com/watch?v=uKWu6yhnhbQ)
