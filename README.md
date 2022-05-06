@@ -5,3 +5,5 @@
  - This org file is organized into different branches. 
 ## [rtfm_base](https://github.com/jknoxdev/scripts/tree/main/rtfm_base)
  - Here is were I've fixed some of the scripts from the [rtfm](https://www.amazon.com/Rtfm-Red-Team-Field-Manual/dp/1494295504) and am making them usable in the field.
+## [cracking](https://github.com/jknoxdev/scripts/tree/main/cracking)
+ - Scripts to help with cracking of various file types
