@@ -50,18 +50,88 @@
 *** ASNn
 **** 555619
 **** 30878
+**** tools used
+ - https://bgp.hp.net (TODO: Integrate into parser, to use the aquisitions to grep the ASNs)
+ - amass, dns, scraping, pulls certs
+ - other tools
+   - [ASNLookup](https://github.com/yassineaboukir/Asnlookup/blob/master/asnlookup.py) by Yassine Aboukir
+   - "net" switch from [Metabigor](https://github.com/j3ssie/Metabigor) by j3ssiejjj
+
+**** scripts
+
+***** loop through asn loop, uncomment for payload, output from here will give you the roots
+#+begin_src sh :results output raw
+  asn_list=$(cat ~/projects/bounties/target/asns/asn_list)
+  for asn in $asn_list
+  do
+  echo "-----------------------------------------------"
+  echo "Targeting: "$asn
+  # amass intel --asn $asn          
+  echo "-----------------------------------------------"
+  done
+#+end_src
+
+#+RESULTS:
+-----------------------------------------------
+Targeting: 32425
+-----------------------------------------------
+-----------------------------------------------
+Targeting: 344252
+-----------------------------------------------
+-----------------------------------------------
+Targeting: 4322165
+-----------------------------------------------
+-----------------------------------------------
+Targeting: 466575
+-----------------------------------------------
+-----------------------------------------------
+Targeting: 4534646
+-----------------------------------------------
+-----------------------------------------------
+Targeting: 1158282
+-----------------------------------------------
+32425
+344252
+4322165
+466575
+4534646
+1158282
+32425 344252 4322165 466575 4534646 1158282
+32425
+344252
+4322165
+466575
+4534646
+1158282
+
+#+begin_src sh results output raw
+
+amass intel --asn $asn
+#+end_src
+
 *** Acquisitions
+ - https://www.crunchbase.com (TODO: Parse data from crunchase < 2 years)
 **** Deepscale
 **** Maxwell Technologies
 **** Grolhmann Engineering
 **** Porbic
 **** Rivera Tool LLC
 **** SolarCity
+**** tools used
+ - https://www.crunchbase.com
 *** Linked Discovery
 *** Reverse WHOIS
 **** someproxyname/name/234285745
 **** tools used:
+ - https://www.whoxy.com
+   - has an api
+   - go through on the company name
+     - provides usually many parked domains
+     - requires going back through to resolve each of the domains
+ - [DOMlink](https://github.com/vysecurity/DomLink) by Vincent Yiu
+ - also can simply curl
+* sources:
  - [whoxy](https://www.whoxy.com)
  - [DOMLink](https://github.com/vysecurity/DomLink)
-* sources: 
  - [The Bug Hunter's Methodology Full 2-hour Training by Jason HaddixY](https://www.youtube.com/watch?v=uKWu6yhnhbQ)
+ - [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet)
