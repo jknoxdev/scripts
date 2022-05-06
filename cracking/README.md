@@ -1,6 +1,6 @@
-#cracking
+# cracking
 ------
-##crack7zip
+## crack7zip
  - crack7zip.rb
    - Asks the user for the filename and implements the techniques from [How to Crack Encrypted 7z Archives](https://infinitelogins.com/2020/04/29/how-to-crack-encrypted-7z-archives/)
      - Extracts the hash from the file using  Nguyen Dac Truong's [7z2john.py](https://github.com/truongkma/ctf-tools/blob/master/John/run/7z2john.py)
