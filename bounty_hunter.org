@@ -58,7 +58,6 @@
    - "net" switch from [Metabigor](https://github.com/j3ssie/Metabigor) by j3ssiejjj
 
 **** scripts
-
 ***** loop through asn loop, uncomment for payload, output from here will give you the roots
 #+begin_src sh :results output raw
   asn_list=$(cat ~/projects/bounties/target/asns/asn_list)
@@ -90,19 +89,7 @@ Targeting: 4534646
 -----------------------------------------------
 Targeting: 1158282
 -----------------------------------------------
-32425
-344252
-4322165
-466575
-4534646
-1158282
-32425 344252 4322165 466575 4534646 1158282
-32425
-344252
-4322165
-466575
-4534646
-1158282
+
 
 #+begin_src sh results output raw
 
@@ -120,6 +107,17 @@ amass intel --asn $asn
 **** tools used
  - https://www.crunchbase.com
 *** Linked Discovery
+*** port discovery
+#+begin_src sh :results output raw
+  port_list=$(cat ~/projects/bounties/target/pois/poi_list)
+  for poi in $poi_list
+  do
+  echo "-----------------------------------------------"
+  echo "Scanning ports on: "
+  
+  echo "-----------------------------------------------"
+  done
+#+end_src
 *** Reverse WHOIS
 **** someproxyname/name/234285745
 **** tools used:
@@ -135,3 +133,4 @@ amass intel --asn $asn
  - [DOMLink](https://github.com/vysecurity/DomLink)
  - [The Bug Hunter's Methodology Full 2-hour Training by Jason HaddixY](https://www.youtube.com/watch?v=uKWu6yhnhbQ)
  - [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet)
+ - [The Red Team Field Manual](https://www.amazon.com/Rtfm-Red-Team-Field-Manual/dp/1494295504)
