@@ -1,0 +1,5 @@
+#cracking
+------
+##7zip
+ - hashcat.rb
+   - Asks the user for the filename and implements the techniques from [How to Crack Encrypted 7z Archives](https://infinitelogins.com/2020/04/29/how-to-crack-encrypted-7z-archives/) to conduct the cracking 
