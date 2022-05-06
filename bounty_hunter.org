@@ -131,5 +131,7 @@ amass intel --asn $asn
  - [DOMlink](https://github.com/vysecurity/DomLink) by Vincent Yiu
  - also can simply curl
 * sources:
+ - [whoxy](https://www.whoxy.com)
+ - [DOMLink](https://github.com/vysecurity/DomLink)
  - [The Bug Hunter's Methodology Full 2-hour Training by Jason HaddixY](https://www.youtube.com/watch?v=uKWu6yhnhbQ)
  - [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet)
