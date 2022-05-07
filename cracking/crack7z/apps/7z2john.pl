@@ -41,7 +41,7 @@ from zlib import crc32
 import zlib
 import bz2
 import binascii
-import StringIO
+from io import StringIO
 import sys
 import os
 
@@ -153,7 +153,7 @@ class NoPasswordGivenError(DecryptionError):
 class WrongPasswordError(DecryptionError):
     pass
 
-class ArchiveTimestamp(long):
+class ArchiveTimestamp(int):
     """Windows FILETIME timestamp."""
 
     def __repr__(self):
@@ -367,6 +367,7 @@ class SubstreamsInfo(Base):
             for i in range(len(self.numunpackstreams)):
                 for j in range(1, self.numunpackstreams[i]):
                     size = self._read64Bit(file)
+                    print (size)
                     self.unpacksizes.append(size)
                     sum += size
                 self.unpacksizes.append(folders[i].getUnpackSize() - sum)
@@ -783,14 +784,12 @@ class Archive7z(Base):
                     for idx in range(len(streams.packinfo.packsizes)):
                         tmp = file.read(streams.packinfo.packsizes[idx])
                         fname = os.path.basename(self._file.name)
-                        print "%s:$7z$0$%s$%s$%s$%s$%s$%s$%s$%s$%s" % (fname,
-                            NumCyclesPower, SaltSize, binascii.hexlify(Salt),
-                            ivSize, binascii.hexlify(iv), folder.crc, len(tmp),
-                            folder.unpacksizes[idx], binascii.hexlify(tmp))
-                        # print binascii.hexlify(tmp)
-                        # result = cipher.decrypt(tmp)
-                        # print folder.unpacksizes
-                        # print folder.coders
+                        print "%s:$7z$0$%s$%s$%s$%s$%s$%s$%s$%s$%s" % (fname, NumCyclesPower, SaltSize, binascii.hexlify(Salt),ivSize, binascii.hexlify(iv), folder.crc, len(tmp), folder.unpacksizes[idx], binascii.hexlify(tmp))
+                        # print b# inascii.hexlify(tmp)
+                        # # result = cipher.decrypt(tmp)
+                        # # print folder.unpacksizes
+                        #        # 
+#                               print folder.coders # 
                         # XXX we don't now how to handle unpacksizes of size > 1
                         # XXX we need to locate correct data and pass it to correct decompressor
                         # XXX correct decompressor can be located from folder.coders
