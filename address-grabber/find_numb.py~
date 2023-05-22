@@ -1,0 +1,41 @@
+import requests
+import csv
+
+def get_address(api_key, company_name):
+    url = 'https://api.yelp.com/v3/businesses/search'
+    headers = {'Authorization': 'Bearer ' + api_key}
+    params = {'term': company_name, 'location': 'San Francisco'}  # Change location to your desired location
+    
+    response = requests.get(url, headers=headers, params=params)
+    data = response.json()
+    
+    if 'businesses' in data:
+        businesses = data['businesses']
+        if businesses:
+            first_business = businesses[0]
+            address = first_business['location'].get('display_address', [])
+            if len(address) >= 2:
+                return [company_name, address[0], address[1]]
+    
+    return [company_name, 'N/A', 'N/A']
+
+def main():
+    api_key = 'YOUR_YELP_API_KEY'  # Replace with your actual Yelp API key
+    input_file = 'companies.txt'  # Path to your input file
+    output_file = 'output.csv'  # Path to your output file
+    
+    with open(input_file, 'r') as file:
+        companies = file.read().splitlines()
+    
+    with open(output_file, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Name', 'Street Number', 'Street Name'])
+        
+        for company in companies:
+            address = get_address(api_key, company)
+            writer.writerow(address)
+    
+    print(f"Data written to {output_file} successfully!")
+
+if __name__ == '__main__':
+    main()
