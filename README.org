@@ -1,0 +1,30 @@
+* scripts
+** [[./pdf_merger/main.py][pdf_merger]] - merges two directories of pdfs and matches based on keywords
+*** screens:
+ [[./img/pdf_merger.png]]
+*** usage:
+ - place the files to merge in the two directories, summary and status:
+   ./summary/customer_summary.pdf
+   ./status/customer_status.pdf
+   #+begin_src sh :results output none
+     python ./main.py
+   #+end_src
+*** versions
+ - [X] v0.001 - takes input pdf's from the summary and status directories, merges based on keyword
+ - [ ] v0.002 - change directory names? select how many directories to check from? change file type?
+
+** old scripts:
+(yeold scripts)
+  
+## [bounty_hunter](https://github.com/jknoxdev/scripts/tree/main/bounty_hunter)
+ - A collection of scripts written inside of code blocks in an emacs formatted org-file to implement the techniques discussed within Jason Haddix 2020 Defcon Talk [The Bug Hunter's Methodology Full 2-hour Training by Jason Haddix](https://www.youtube.com/watch?v=uKWu6yhnhbQ)
+ - This org file is organized into different branches. 
+## [rtfm_base](https://github.com/jknoxdev/scripts/tree/main/rtfm_base)
+ - Here is were I've fixed some of the scripts from the [rtfm](https://www.amazon.com/Rtfm-Red-Team-Field-Manual/dp/1494295504) and am making them usable in the field.
+## [cracking](https://github.com/jknoxdev/scripts/tree/main/cracking)
+<<<<<<< HEAD
+ - Scripts to help with cracking of various file type
+=======
+ - Scripts to help with cracking of various file types
+>>>>>>> refs/remotes/origin/main
+** 
