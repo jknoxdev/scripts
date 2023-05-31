@@ -1,0 +1,64 @@
+import os
+from PyPDF4 import PdfMerger
+
+def merge_pdfs_in_folder(folder_path):
+    # Create a dictionary to store the matched PDFs
+    matched_pdfs = {}
+
+    # Iterate over each file in the folder
+    for filename in os.listdir(folder_path):
+        if filename.endswith(".pdf"):
+            # Extract the base name of the file without the extension
+            base_name = os.path.splitext(filename)[0]
+
+            # Check if the base name is already present in the dictionary
+            if base_name in matched_pdfs:
+                # If present, append the current PDF to the existing list of matched PDFs
+                matched_pdfs[base_name].append(filename)
+            else:
+                # If not present, create a new entry in the dictionary with the current PDF
+                matched_pdfs[base_name] = [filename]
+
+    # Check if there are any matches
+    if len(matched_pdfs) == 0:
+        print("No matches found.")
+        return
+
+    # Display menu options
+    print("Menu:")
+    print("1. Find matches")
+    print("2. Merge matched PDFs")
+    print("3. Quit")
+
+    while True:
+        choice = input("Enter your choice (1-3): ")
+
+        if choice == "1":
+            # Print the matched PDFs
+            print("Matched PDFs:")
+            for base_name, pdfs in matched_pdfs.items():
+                print(f"- {base_name}: {', '.join(pdfs)}")
+        elif choice == "2":
+            # Merge the matched PDFs
+            for base_name, pdfs in matched_pdfs.items():
+                output_filename = f"Aggregate Report for {base_name}.pdf"
+                merger = PdfMerger()
+
+                for pdf in pdfs:
+                    pdf_path = os.path.join(folder_path, pdf)
+                    merger.append(pdf_path)
+
+                merger.write(output_filename)
+                merger.close()
+
+                print(f"Merged {len(pdfs)} PDFs into {output_filename}")
+            
+            break  # Exit the loop after merging PDFs
+        elif choice == "3":
+            break  # Exit the loop and quit the script
+        else:
+            print("Invalid choice. Please try again.")
+
+# Example usage
+folder_path = "path/to/folder"
+merge_pdfs_in_folder(folder_path)
