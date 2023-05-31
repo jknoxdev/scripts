@@ -1,0 +1,80 @@
+import os
+import re
+from PyPDF4 import PdfFileMerger
+
+def find_matched_pdfs(folder_path):
+    # Create a dictionary to store the matched PDFs
+    matched_pdfs = {}
+
+    # Iterate over each file in the subdirectory
+    subdirectory_path = os.path.join(folder_path, "merge_pile")
+    files = [f for f in os.listdir(subdirectory_path) if f.endswith(".pdf")]
+    num_files = len(files)
+
+    for i in range(num_files):
+        filename = files[i]
+        base_name = os.path.splitext(filename)[0]
+
+        # Find the other filenames that match the base name
+        other_filenames = []
+        for j in range(num_files):
+            if j != i:
+                other_filename = files[j]
+                other_base_name = os.path.splitext(other_filename)[0]
+                if re.search(r"\b" + re.escape(other_base_name) + r"\b", base_name, re.IGNORECASE):
+                    other_filenames.append(other_filename)
+
+        if other_filenames:
+            # Add the matched PDFs to the dictionary
+            matched_pdfs[base_name] = [filename] + other_filenames
+
+    return matched_pdfs
+
+def merge_matched_pdfs(matched_pdfs, folder_path):
+    # Display the matched PDFs
+    print("Matched PDFs:")
+    for base_name, pdfs in matched_pdfs.items():
+        print(f"- {base_name}: {', '.join(pdfs)}")
+
+    # Ask the user if they want to merge the matched PDFs
+    merge_choice = input("Do you want to merge the matched PDFs? (y/n): ")
+    if merge_choice.lower() == "y":
+        # Merge the matched PDFs
+        subdirectory_path = os.path.join(folder_path, "merge_pile")
+        for base_name, pdfs in matched_pdfs.items():
+            output_filename = f"Aggregate Report for {base_name}.pdf"
+            merger = PdfFileMerger()
+
+            for pdf in pdfs:
+                pdf_path = os.path.join(subdirectory_path, pdf)
+                merger.append(pdf_path)
+
+            merger.write(output_filename)
+            merger.close()
+
+            print(f"Merged {len(pdfs)} PDFs into {output_filename}")
+    else:
+        print("Merge operation canceled.")
+
+# Example usage
+folder_path = "./"
+
+# Display menu options
+print("Menu:")
+print("1. Find matches")
+print("2. Quit")
+
+while True:
+    choice = input("Enter your choice (1-2): ")
+
+    if choice == "1":
+        matched_pdfs = find_matched_pdfs(folder_path)
+        if len(matched_pdfs) == 0:
+            print("No matches found.")
+        else:
+            merge_matched_pdfs(matched_pdfs, folder_path)
+        break
+    elif choice == "2":
+        break
+    else:
+        print("Invalid choice. Please try again.")
