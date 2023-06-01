@@ -2,8 +2,16 @@ import subprocess
 
 
 def login():
-    subprocess.run(["bw", "login"])
+    password = input("Enter your Bitwarden password: ")
+    p = subprocess.Popen(["bw", "login", "--raw"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+    output, _ = p.communicate(input=password)
 
+    bw_session = output.strip()
+    if bw_session:
+        print("Logged in successfully.")
+        print(f"BW_SESSION={bw_session}")
+    else:
+        print("Login failed.")
 
 def list_items():
     result = subprocess.run(["bw", "list", "items"], capture_output=True, text=True)
