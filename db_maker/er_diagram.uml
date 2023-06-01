@@ -1,0 +1,156 @@
+@startuml
+
+!define TABLE_BORDER_COLOR DarkSlateGray
+!define TABLE_HEADER_COLOR LightSteelBlue
+!define TABLE_ROW_COLOR White
+!define TABLE_HEADER_FONT_SIZE 14
+!define TABLE_ROW_FONT_SIZE 12
+!define ENTITY_RELATIONSHIP_LINE_COLOR DarkSlateGray
+!define ENTITY_COLOR LightGreen
+!define RELATIONSHIP_COLOR LightBlue
+!define RELATIONSHIP_ARROW_COLOR LightBlue
+
+skinparam class {
+    BackgroundColor ENTITY_COLOR
+    BorderColor TABLE_BORDER_COLOR
+    ArrowColor RELATIONSHIP_ARROW_COLOR
+}
+
+skinparam entity {
+    BackgroundColor ENTITY_COLOR
+    BorderColor TABLE_BORDER_COLOR
+    FontColor DarkSlateGray
+}
+
+skinparam relationship {
+    BackgroundColor RELATIONSHIP_COLOR
+    BorderColor TABLE_BORDER_COLOR
+    FontColor DarkSlateGray
+}
+
+entity "association" as association {
+    + association_id : INTEGER [PK]
+    type : TEXT
+}
+
+entity "category" as category {
+    + category_id : INTEGER [PK]
+    category : TEXT
+}
+
+entity "category_list" as category_list {
+    + category_list_id : INTEGER [PK]
+    main : category [FK]
+    second : category [FK]
+    third : category [FK]
+}
+
+entity "company" as company {
+    name : TEXT
+    email : TEXT
+    phone
+    + company_id : INTEGER [PK]
+    business_start : NUMERIC
+    business_end : NUMERIC
+    co_owned : company [FK]
+    co_owned_two : NUMERIC
+}
+
+entity "device" as device {
+    + device_id : INTEGER [PK]
+    model_id : model [FK]
+    manufacturer_id : manufacturer [FK]
+    category_list_id : category_list [FK]
+    serial_id : serial [FK]
+    name : TEXT
+    warranty_id : warranty [FK]
+    location_id : location [FK]
+}
+
+entity "device_type" as device_type {
+    + device_type_id : INTEGER [PK]
+    category_id
+    device_type : TEXT
+}
+
+entity "did" as did {
+    + did_id : INTEGER [PK]
+    did_no : NUMERIC
+    sip_id : sip [FK]
+}
+
+entity "location" as location {
+    address
+    address_two
+    city
+    state
+    latitude
+    longitude
+    + location_id : INTEGER [PK]
+    company_id : company [FK]
+}
+
+entity "manufacturer" as manufacturer {
+    + manufacturer_id : INTEGER [PK]
+    name : TEXT
+}
+
+entity "model" as model {
+    + model_id : INTEGER [PK]
+}
+
+entity "person" as person {
+    + person_id : INTEGER [PK]
+    company_id : company [FK]
+    location_id : location [FK]
+}
+
+entity "phone" as phone {
+    + phone_id : INTEGER [PK]
+    number : NUMERIC
+    sim : TEXT
+    model_id : model [FK]
+    manufacturer_id : manufacturer [FK]
+    sip_id : sip [FK]
+}
+
+entity "serial" as serial {
+    + serial_id : INTEGER [PK]
+    serial_no : TEXT
+}
+
+entity "sip" as sip {
+    + sip_id : INTEGER [PK]
+    sip_no : NUMERIC
+    "" : company [FK]
+}
+
+entity "warranty" as warranty {
+    + warranty_id : INTEGER [PK]
+    start_date : NUMERIC
+    end_date : NUMERIC
+}
+
+association "category" -- "category_list" : "1" -- "0..1"
+association "category_list" -- "category" : "1" -- "1..*"
+association "company" -- "company" : "0..1" -- "1"
+association "company" -- "location" : "1" -- "0..*"
+association "device" -- "model" : "1" -- "1"
+association "device" -- "manufacturer" : "1" -- "1"
+association "device" -- "category_list" : "1" -- "1"
+association "device" -- "serial" : "1" -- "1"
+association "device" -- "warranty" : "1" -- "1"
+association "device" -- "location" : "1" -- "1"
+association "device_type" -- "category" : "1" -- "0..*"
+association "did" -- "sip" : "1" -- "0..1"
+association "location" -- "company" : "1" -- "0..1"
+association "model" -- "phone" : "1" -- "0..*"
+association "model" -- "manufacturer" : "1" -- "1"
+association "phone" -- "sip" : "1" -- "0..1"
+association "serial" -- "device" : "1" -- "0..*"
+association "sip" -- "company" : "1" -- "0..1"
+association "warranty" -- "device" : "1" -- "0..*"
+association "company" -- "person" : "1" -- "0..*"
+association "location" -- "person" : "1" -- "0..*"
+
+@enduml
