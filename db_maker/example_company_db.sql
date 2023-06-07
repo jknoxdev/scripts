@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.4.4 on Thu Jun 1 14:13:41 2023
+-- File generated with SQLiteStudio v3.4.4 on Wed Jun 7 13:53:20 2023
 --
 -- Text encoding used: UTF-8
 --
@@ -13,6 +13,42 @@ CREATE TABLE IF NOT EXISTS association (
     association_id INTEGER PRIMARY KEY AUTOINCREMENT,
     type           TEXT
 );
+
+INSERT INTO association (
+                            association_id,
+                            type
+                        )
+                        VALUES (
+                            1,
+                            'Customer'
+                        );
+
+INSERT INTO association (
+                            association_id,
+                            type
+                        )
+                        VALUES (
+                            2,
+                            'Manager'
+                        );
+
+INSERT INTO association (
+                            association_id,
+                            type
+                        )
+                        VALUES (
+                            3,
+                            'Employee'
+                        );
+
+INSERT INTO association (
+                            association_id,
+                            type
+                        )
+                        VALUES (
+                            4,
+                            'Owner'
+                        );
 
 
 -- Table: category

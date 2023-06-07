@@ -1,4 +1,9 @@
 * scripts
+** db_maker - database helper tools, diagrams and mgmt scripts
+*** diagramming
+ - [[./db_maker/db.uml.org]] - org file for uml to svg exporting
+*** example company database
+ - [[./db_maker/example_company_db.sql]]
 ** [[./pdf_merger/main.py][pdf_merger]] - merges two directories of pdfs and matches based on keywords
 *** screens:
  [[./img/pdf_merger.png]]
