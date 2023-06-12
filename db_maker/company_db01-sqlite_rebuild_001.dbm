@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.0.1" use-changelog="false" last-position="0,0" last-zoom="0.45" max-obj-count="14"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="association" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="60" y="40"/>
+	<column name="asc_id" not-null="true"
+	 identity-type="BY DEFAULT" start="1" increment="1" min-value="0" max-value="32767" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="type">
+		<type name="varchar" length="0"/>
+	</column>
+</table>
+
+<table name="company" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="320" y="120"/>
+	<column name="company_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="name">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="email">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="phone">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="date_founded">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="date_ended">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="co-owned-with">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="co-owned-with-too">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="device" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="620" y="40"/>
+	<column name="device_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="model_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="manufacturer_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="category_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="serial_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="name">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="warranty_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="location_id">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="device_type" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="880" y="40"/>
+	<column name="device_type_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="category_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="device_type">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="did" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1220" y="120"/>
+	<column name="did_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="did_no">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="sip_id">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="location" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="880" y="300"/>
+	<column name="location_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="address">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="address_two">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="city">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="state">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="lat">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="long">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="company_id">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="manufacturer" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="60" y="360"/>
+	<column name="manufacturer_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="name">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="model" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="620" y="320"/>
+	<column name="model_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="32767" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="name">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="person" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1200" y="340"/>
+	<column name="person_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="company_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="location_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="phone_id">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="serial" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="520" y="580"/>
+	<column name="serial_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="serial_no">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="sip" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="880" y="640"/>
+	<column name="sip_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="sip_no">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="warranty" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1260" y="540"/>
+	<column name="warranty_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="date-start">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="date-end">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="manufacturer_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="warranty_type">
+		<type name="varchar" length="0"/>
+	</column>
+</table>
+
+</dbmodel>

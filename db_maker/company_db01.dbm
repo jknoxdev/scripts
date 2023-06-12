@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.0.1" use-changelog="false" last-position="0,0" last-zoom="0.2" max-obj-count="21"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="association" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2440" y="520"/>
+	<column name="asc_id" not-null="true"
+	 identity-type="BY DEFAULT" start="1" increment="1" min-value="0" max-value="32767" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="type">
+		<type name="varchar" length="0"/>
+	</column>
+	<constraint name="association_pk" type="pk-constr" table="public.association">
+		<columns names="asc_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="company" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1060" y="960"/>
+	<column name="company_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="32767" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="name">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="email">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="phone">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="date_founded">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="date_ended">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="co-owned-with">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="co-owned-with-too">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="device" layers="0" collapse-mode="2" max-obj-count="13" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="60" y="60"/>
+	<column name="device_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="32767" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="model_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="manufacturer_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="category_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="serial_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="name">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="warranty_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="location_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="device_type_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="did_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="sip_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="device_pk" type="pk-constr" table="public.device">
+		<columns names="device_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="device_type" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="580" y="720"/>
+	<column name="device_type_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="category_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="device_type">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="device_type_pk" type="pk-constr" table="public.device_type">
+		<columns names="device_type_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="did" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="620" y="1280"/>
+	<column name="did_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="did_no">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="sip_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="did_pk" type="pk-constr" table="public.did">
+		<columns names="did_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="location" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="580" y="900"/>
+	<column name="location_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="32767" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="address">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="address_two">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="city">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="state">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="lat">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="long">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="company_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="location_pk" type="pk-constr" table="public.location">
+		<columns names="location_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="manufacturer" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="580" y="160"/>
+	<column name="manufacturer_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="32767" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="name">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="manufacturer_pk" type="pk-constr" table="public.manufacturer">
+		<columns names="manufacturer_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="model" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="580" y="0"/>
+	<column name="model_id" not-null="true"
+	 identity-type="ALWAYS">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="name">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="model_pk" type="pk-constr" table="public.model">
+		<columns names="model_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="person" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1960" y="420"/>
+	<column name="person_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="32767" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="company_id" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="location_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="phone_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="asc_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="person_pk" type="pk-constr" table="public.person">
+		<columns names="person_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="serial" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="580" y="320"/>
+	<column name="serial_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="32767" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="serial_no">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="serial_pk" type="pk-constr" table="public.serial">
+		<columns names="serial_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="sip" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="400" y="1440"/>
+	<column name="sip_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="32767" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="sip_no">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="sip_pk" type="pk-constr" table="public.sip">
+		<columns names="sip_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="warranty" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="580" y="480"/>
+	<column name="warranty_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="date-start">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="date-end">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="manufacturer_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="warranty_type">
+		<type name="varchar" length="0"/>
+	</column>
+	<constraint name="warranty_pk" type="pk-constr" table="public.warranty">
+		<columns names="warranty_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="person_device_list" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1500" y="340"/>
+	<column name="person_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="company_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="device_list_id">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<table name="company_device_list" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2900" y="620"/>
+	<column name="device_list_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="company_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="company_device_list_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="company_device_list_pk" type="pk-constr" table="public.company_device_list">
+		<columns names="company_device_list_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="device_list" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2440" y="340"/>
+	<column name="person_id">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="device_list_id" not-null="true"
+	 identity-type="ALWAYS" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+		<type name="smallint" length="0"/>
+	</column>
+</table>
+
+<constraint name="model_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.model" table="public.device">
+	<columns names="model_id" ref-type="src-columns"/>
+	<columns names="model_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="manufacturer_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.manufacturer" table="public.device">
+	<columns names="manufacturer_id" ref-type="src-columns"/>
+	<columns names="manufacturer_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="serial_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.serial" table="public.device">
+	<columns names="serial_id" ref-type="src-columns"/>
+	<columns names="serial_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="device_type_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.device_type" table="public.device">
+	<columns names="device_type_id" ref-type="src-columns"/>
+	<columns names="device_type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="warranty_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.warranty" table="public.device">
+	<columns names="warranty_id" ref-type="src-columns"/>
+	<columns names="warranty_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="location_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.location" table="public.device">
+	<columns names="location_id" ref-type="src-columns"/>
+	<columns names="location_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="did_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.did" table="public.device">
+	<columns names="did_id" ref-type="src-columns"/>
+	<columns names="did_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sip_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.sip" table="public.device">
+	<columns names="sip_id" ref-type="src-columns"/>
+	<columns names="sip_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sip_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.sip" table="public.did">
+	<columns names="sip_id" ref-type="src-columns"/>
+	<columns names="sip_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="company_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.company" table="public.location">
+	<columns names="company_id" ref-type="src-columns"/>
+	<columns names="company_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="asc_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.association" table="public.person">
+	<columns names="asc_id" ref-type="src-columns"/>
+	<columns names="asc_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="company_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.company" table="public.person">
+	<columns names="company_id" ref-type="src-columns"/>
+	<columns names="company_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="location_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.location" table="public.person">
+	<columns names="location_id" ref-type="src-columns"/>
+	<columns names="location_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="person_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.person" table="public.person_device_list">
+	<columns names="person_id" ref-type="src-columns"/>
+	<columns names="person_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="company_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.company" table="public.person_device_list">
+	<columns names="company_id" ref-type="src-columns"/>
+	<columns names="company_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="device_list_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.device_list" table="public.company_device_list">
+	<columns names="device_list_id" ref-type="src-columns"/>
+	<columns names="device_list_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="company_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.company" table="public.company_device_list">
+	<columns names="company_id" ref-type="src-columns"/>
+	<columns names="company_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="person_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.person" table="public.device_list">
+	<columns names="person_id" ref-type="src-columns"/>
+	<columns names="person_id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_person_association" type="relfk" layers="0"
+	 src-table="public.person"
+	 dst-table="public.association" reference-fk="asc_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_location_company" type="relfk" layers="0"
+	 src-table="public.location"
+	 dst-table="public.company" reference-fk="company_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_person_company" type="relfk" layers="0"
+	 src-table="public.person"
+	 dst-table="public.company" reference-fk="company_id"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_person_location" type="relfk" layers="0"
+	 src-table="public.person"
+	 dst-table="public.location" reference-fk="location_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_device_model" type="relfk" layers="0"
+	 src-table="public.device"
+	 dst-table="public.model" reference-fk="model_id"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_device_manufacturer" type="relfk" layers="0"
+	 src-table="public.device"
+	 dst-table="public.manufacturer" reference-fk="manufacturer_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_device_serial" type="relfk" layers="0"
+	 src-table="public.device"
+	 dst-table="public.serial" reference-fk="serial_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_device_device_type" type="relfk" layers="0"
+	 src-table="public.device"
+	 dst-table="public.device_type" reference-fk="device_type_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_device_warranty" type="relfk" layers="0"
+	 src-table="public.device"
+	 dst-table="public.warranty" reference-fk="warranty_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_device_location" type="relfk" layers="0"
+	 src-table="public.device"
+	 dst-table="public.location" reference-fk="location_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_person_device_list_person" type="relfk" layers="0"
+	 src-table="public.person_device_list"
+	 dst-table="public.person" reference-fk="person_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_person_device_list_company" type="relfk" layers="0"
+	 src-table="public.person_device_list"
+	 dst-table="public.company" reference-fk="company_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_device_list_person" type="relfk" layers="0"
+	 src-table="public.device_list"
+	 dst-table="public.person" reference-fk="person_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_company_device_list_device_list" type="relfk" layers="0"
+	 src-table="public.company_device_list"
+	 dst-table="public.device_list" reference-fk="device_list_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_company_device_list_company" type="relfk" layers="0"
+	 src-table="public.company_device_list"
+	 dst-table="public.company" reference-fk="company_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_did_sip" type="relfk" layers="0"
+	 src-table="public.did"
+	 dst-table="public.sip" reference-fk="sip_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_device_did" type="relfk" layers="0"
+	 src-table="public.device"
+	 dst-table="public.did" reference-fk="did_id"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_device_sip" type="relfk" layers="0"
+	 src-table="public.device"
+	 dst-table="public.sip" reference-fk="sip_id"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
