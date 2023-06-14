@@ -7,9 +7,9 @@
 -- Database creation must be performed outside a multi lined SQL file. 
 -- These commands were put in this file only as a convenience.
 -- 
--- object: new_database | type: DATABASE --
--- DROP DATABASE IF EXISTS new_database;
-CREATE DATABASE new_database;
+-- object: db-43197 | type: DATABASE --
+-- DROP DATABASE IF EXISTS db-43197;
+CREATE DATABASE db-43197;
 -- ddl-end --
 
 
