@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>File Hash Generator</title>
+  </head>
+  <body>
+    <h1>File Hash Generator</h1>
+    <form id="fileForm">
+      <input type="file" name="files[]" multiple accept=".*," />
+      <br />
+      <button type="submit">Upload Files</button>
+    </form>
+    <script>
+      const form = document.getElementById('fileForm');
+      const filesInput = form.elements['files[]'];
+      const submitButton = form.elements['submit'];
+      const fileHashes = [];
+
+      // File upload event handler
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Loop through selected files and calculate their SHA-256 hash using only JavaScript
+        for (let i = 0; i < filesInput.files.length; i++) {
+          const file = filesInput.files[i];
+          if (file.type === 'application/octet-stream') { // Only process files with a valid MIME type
+            const reader = new FileReader();
+            reader.onloadend = function() {
+              const arrayBuffer = reader.result;
+              const hash = crypto.subtle.digest('sha256', arrayBuffer);
+              fileHashes.push({ fileName: file.name, hash });
+            };
+            reader.readAsArrayBuffer(file);
+          }
+        }
+
+        // Save file hashes to JSON file on server (replace with your own server-side code)
+        const jsonString = JSON.stringify(fileHashes, null, 2);
+        fetch('/save-hashes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: jsonString
+        });
+      });
+    </script>
+  </body>
+</html>
