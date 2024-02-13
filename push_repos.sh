@@ -1,4 +1,4 @@
-#!/bin/bashc
+#!/bin/bash
 echo '--- notes    ---';cd ~/code/jknoxdev/notes             ; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
 echo '--- scripts  ---';cd ~/code/jknoxdev/scripts	     ; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
 echo '--- n3s      ---';cd ~/code/jknoxdev/n3s		     ; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;

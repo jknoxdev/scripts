@@ -1,4 +1,4 @@
-#!/bin/bashc
+#!/bin/bash
 echo '--- notes    ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/notes.git ;
 echo '--- scripts  ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/scripts.git ;
 echo '--- n3s      ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/n3s.git ;
