@@ -1,6 +1,6 @@
 #!/bin/bash
 
-surge --domain jknoxdev.surge.sh ~/code/jknoxdev/jknoxdev/www/ &
+#surge --domain jknoxdev.surge.sh ~/code/jknoxdev/jknoxdev/www/ &
 
 
 echo '--- notes    ---';cd ~/code/jknoxdev/notes             ; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
