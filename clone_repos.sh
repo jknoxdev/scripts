@@ -9,5 +9,5 @@ echo '--- courswrk ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/c
 echo '--- hack     ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/hack.git ;
 echo '--- toosl    ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/tools.git ;
 echo '--- ctf-toos ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/ctf-tools.git ;
-
+echo '--- ghp-site ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/jknoxdev.github.io.git ;
 echo 'done!'
