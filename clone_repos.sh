@@ -1,4 +1,7 @@
 #!/bin/bash
+git config --global user.email "techbiotic@posteo.de"
+git config --global user.name "jknoxdev"
+
 echo '--- notes    ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/notes.git ;
 echo '--- scripts  ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/scripts.git ;
 echo '--- n3s      ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/n3s.git ;
