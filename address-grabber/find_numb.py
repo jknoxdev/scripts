@@ -2,13 +2,21 @@ import os
 import requests
 import csv
 
-def get_api_key():
+def get_api_key() -> str:
+    """
+    Read the TomTom API key from a file.
+
+    The file should be located at ~/keys/jknoxdev_testing_tomtomapi.key
+
+    Returns:
+        The API key as a string
+    """
     keys_folder = os.path.expanduser('~/keys')
     keys_file = os.path.join(keys_folder, 'jknoxdev_testing_tomtomapi.key')
     
     if os.path.exists(keys_file):
         with open(keys_file, 'r') as file:
-            api_key = file.read().strip()
+            api_key: str = file.read().strip()
             return api_key
     else:
         print(f"API key file not found: {keys_file}")
