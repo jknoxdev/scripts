@@ -1,4 +1,4 @@
-#!/bin/bash
+y#!/bin/bash
 echo '--- notes    ---';cd ~/code/jknoxdev/notes             ; git pull;
 echo '--- scripts  ---';cd ~/code/jknoxdev/scripts	     ; git pull;
 echo '--- n3s      ---';cd ~/code/jknoxdev/n3s		     ; git pull;
@@ -10,6 +10,10 @@ echo '--- hack     ---';cd ~/code/jknoxdev/hack		     ; git pull;
 echo '--- toosl    ---';cd ~/code/jknoxdev/tools	     ; git pull;
 echo '--- ctf-toos ---';cd ~/code/jknoxdev/ctf-tools	     ; git pull;
 echo '--- ghp-site ---';cd ~/code/jknoxdev/jknoxdev.github.io; git pull;
+echo '--- ghp-site ---';cd ~/code/jknoxdev/www.b3x9.github.io; git pull;
+echo '--- ghp-site ---';cd ~/code/jknoxdev/shop.b3x9.github.io; git pull;
+echo '--- ghp-site ---';cd ~/code/jknoxdev/blog.b3x9.github.io; git pull;
+
 
 echo 'done!'
 
@@ -24,6 +28,9 @@ echo '--- hack     ---';cd ~/code/jknoxdev/hack		     ; git add .; git commit -m
 echo '--- toosl    ---';cd ~/code/jknoxdev/tools	     ; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
 echo '--- ctf-toos ---';cd ~/code/jknoxdev/ctf-tools	     ; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
 echo '--- ghp-site ---';cd ~/code/jknoxdev/jknoxdev.github.io; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
+echo '--- ghp-site ---';cd ~/code/jknoxdev/www.b3x9.github.io; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
+echo '--- ghp-site ---';cd ~/code/jknoxdev/shop.b3x9.github.io; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
+echo '--- ghp-site ---';cd ~/code/jknoxdev/blog.b3x9.github.io; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
 
 
 echo 'waiting for all commands to complete'

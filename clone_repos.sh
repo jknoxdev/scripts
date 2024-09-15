@@ -13,4 +13,8 @@ echo '--- hack     ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/h
 echo '--- toosl    ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/tools.git ;
 echo '--- ctf-toos ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/ctf-tools.git ;
 echo '--- ghp-site ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/jknoxdev.github.io.git ;
+
+echo '--- ghp-site ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/www.b3x9.github.io.git ;
+echo '--- ghp-site ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/shop.b3x9.github.io.git ;
+echo '--- ghp-site ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/blog.github.io.git ;
 echo 'done!'
