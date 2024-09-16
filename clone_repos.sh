@@ -17,4 +17,5 @@ echo '--- ghp-site ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/j
 echo '--- ghp-site ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/www.b3x9.github.io.git ;
 echo '--- ghp-site ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/shop.b3x9.github.io.git ;
 echo '--- ghp-site ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/blog.b3x9.github.io.git ;
+echo '--- ghp-site ---';cd ~/code/jknoxdev ; git clone git@github.com:jknoxdev/jknox.b3x9.github.io.git ;
 echo 'done!'

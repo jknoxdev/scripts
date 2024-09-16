@@ -14,6 +14,8 @@ echo '--- hack     ---';cd ~/code/jknoxdev/hack		     ; git add .; git commit -m
 echo '--- toosl    ---';cd ~/code/jknoxdev/tools	     ; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
 echo '--- ctf-toos ---';cd ~/code/jknoxdev/ctf-tools	     ; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
 echo '--- ghp-site ---';cd ~/code/jknoxdev/jknoxdev.github.io; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
+echo '--- ghp-site ---';cd ~/code/jknoxdev/jknox.b3x9.github.io; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
+
 
 
 echo 'waiting for all commands to complete'

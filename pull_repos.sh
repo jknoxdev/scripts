@@ -11,4 +11,6 @@ echo '--- toosl    ---';cd ~/code/jknoxdev/tools	     ; git pull;
 echo '--- ctf-toos ---';cd ~/code/jknoxdev/ctf-tools	     ; git pull;
 echo '--- ghp-site ---';cd ~/code/jknoxdev/jknoxdev.github.io; git pull;
 
+echo '--- ghp-site ---';cd ~/code/jknoxdev/jknox.b3x9.github.io; git pull;
+
 echo 'done!'

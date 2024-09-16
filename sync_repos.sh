@@ -13,6 +13,7 @@ echo '--- ghp-site ---';cd ~/code/jknoxdev/jknoxdev.github.io; git pull;
 echo '--- ghp-site ---';cd ~/code/jknoxdev/www.b3x9.github.io; git pull;
 echo '--- ghp-site ---';cd ~/code/jknoxdev/shop.b3x9.github.io; git pull;
 echo '--- ghp-site ---';cd ~/code/jknoxdev/blog.b3x9.github.io; git pull;
+echo '--- ghp-site ---';cd ~/code/jknoxdev/jknox.b3x9.github.io; git pull;
 
 
 echo 'done!'
@@ -31,6 +32,7 @@ echo '--- ghp-site ---';cd ~/code/jknoxdev/jknoxdev.github.io; git add .; git co
 echo '--- ghp-site ---';cd ~/code/jknoxdev/www.b3x9.github.io; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
 echo '--- ghp-site ---';cd ~/code/jknoxdev/shop.b3x9.github.io; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
 echo '--- ghp-site ---';cd ~/code/jknoxdev/blog.b3x9.github.io; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
+echo '--- ghp-site ---';cd ~/code/jknoxdev/jknox.b3x9.github.io; git add .; git commit -m "--$(echo $(hostname))--$(date '+%Y%V%w%H%M')--"; git push;
 
 
 echo 'waiting for all commands to complete'
