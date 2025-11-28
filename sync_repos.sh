@@ -1,5 +1,5 @@
 #!/bin/bash
-echo '--- notes    ---';cd ~/code/jknoxdev/notes             ; git pull origin main;
+echo '--- notes    ---';cd ~/code/jknoxdev/notes             ; git pull;
 echo '--- scripts  ---';cd ~/code/jknoxdev/scripts	     ; git pull;
 echo '--- n3s      ---';cd ~/code/jknoxdev/n3s		     ; git pull;
 echo '--- videolan ---';cd ~/code/jknoxdev/video-lan-checker ; git pull;
