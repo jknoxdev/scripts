@@ -1,0 +1,33 @@
+---
+- name: Automate Kali VM Image Download for UTM
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    ansible_user_dir: "/Users/arx/virt"
+    download_dir: "{{ ansible_user_dir }}/isos"
+    kali_version: "2025.3"
+    iso_filename: "kali-linux-2025.3-installer-arm64.iso"
+    kali_arm_url: "https://cdimage.kali.org/kali-{{ kali_version }}/{{ iso_filename }}"
+
+  tasks:
+    - name: Ensure the target directory (~/virt) exists
+      ansible.builtin.file:
+        path: "{{ download_dir }}" 
+        state: directory
+        mode: '0755'
+
+    - name: Download Kali ARM64 ISO with checksum verification
+      ansible.builtin.get_url:
+        url: "{{ kali_arm_url }}"
+        dest: "{{ download_dir }}/{{ iso_filename }}"
+        mode: '0644'
+        checksum: "sha256:https://cdimage.kali.org/kali-{{ kali_version }}/SHA256SUMS"
+        timeout: 600
+
+    - name: Display download location
+      ansible.builtin.debug:
+        msg: "Kali Linux ISO downloaded to: {{ download_dir }}/{{ iso_filename }}"
+
+
