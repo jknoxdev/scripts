@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+#
+
+Vagrant.configure("2") do |vagrant|
+  hostname = "u24"
+
+  vagrant.vm.define hostname, primary: true do |machine|
+    machine.vm.box = "~/virt/u24"
+    machine.vm.hostname = hostname
+
+    machine.vm.provider "utm" do |u|
+      u.name = hostname
+      u.cpus = 8
+      u.memory = 8192
+      u.notes = "Vagrant: for testing and emulating services"
+      u.directory_share_mode = "virtFS"
+    end
+
+  end
+end
