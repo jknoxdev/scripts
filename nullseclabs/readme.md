@@ -21,3 +21,14 @@ and cp the following json to the vm directory:
   "provider": "utm"
 }
 ```
+
+from this guid: 
+https://github.com/icyb3r-code/kali-build
+
+within the kali linux machine:
+```bash
+ansible-galaxy collection install community.general
+ansible-galaxy install -r requirements.yml --roles-path ./roles --force
+sudo whoami
+ansible-playbook -i inventory.yml main.yml
+```
