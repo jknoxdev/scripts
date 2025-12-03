@@ -6,7 +6,7 @@ Vagrant.configure("2") do |vagrant|
   hostname = "u24"
 
   vagrant.vm.define hostname, primary: true do |machine|
-    machine.vm.box = "~/virt/u24"
+    machine.vm.box = "utm/ubuntu-24.04"
     machine.vm.hostname = hostname
 
     machine.vm.provider "utm" do |u|

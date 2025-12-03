@@ -15,4 +15,9 @@ vagrant plugin install vagrant-utm
 
 then add in the ruby code for the vagrant file
 
-
+and cp the following json to the vm directory: 
+```
+{
+  "provider": "utm"
+}
+```
