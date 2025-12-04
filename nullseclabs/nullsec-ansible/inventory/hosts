@@ -1,0 +1,6 @@
+
+[kali]
+localhost ansible_connection=local
+
+[kali:vars]
+ansible_python_interpreter=/usr/bin/python3
