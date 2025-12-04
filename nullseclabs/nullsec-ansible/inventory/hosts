@@ -1,6 +1,6 @@
 
 [kali]
-localhost ansible_connection=local
+k2503 ansible_host=10.0.0.33 ansible_user=jtk
 
 [kali:vars]
 ansible_python_interpreter=/usr/bin/python3

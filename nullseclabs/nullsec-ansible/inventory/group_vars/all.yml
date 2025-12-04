@@ -2,8 +2,9 @@
 ---
 # NullSec OSCP Configuration
 company_name: nullsec
-static_ip: 10.0.0.60
+static_ip: 10.0.0.33
 gateway: 10.0.0.1
 dns_server: 10.0.0.1
 network_interface: eth0
 workspace_name: machs
+ansible_become_password: "{{ vault_become_password }}"

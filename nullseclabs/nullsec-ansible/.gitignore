@@ -1,0 +1,13 @@
+# Ansible vault files
+vault.yml
+*vault*
+
+# Ansible retry files
+*.retry
+
+# Vault password file
+.vault_pass
+
+# Python
+__pycache__/
+*.py[cod]

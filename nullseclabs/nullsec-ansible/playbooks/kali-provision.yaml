@@ -3,12 +3,15 @@
 # Usage: ansible-playbook kali-provision.yml --ask-become-pass
 
 - name: Provision Kali Linux for OSCP/Penetration Testing
-  hosts: localhost
+  hosts: kali
   become: yes
+  gather_facts: yes
+  vars_files: 
+    - ~/vaults/nullsec-ansible.yaml
   vars:
     username: "{{ ansible_user_id }}"
     home_dir: "/home/{{ username }}"
-    static_ip: "10.0.0.60"
+    static_ip: "10.0.0.33"
     gateway: "10.0.0.1"
     dns_server: "10.0.0.1"
     interface: "eth0"  # Change this to your interface name (eth0, ens33, etc.)
