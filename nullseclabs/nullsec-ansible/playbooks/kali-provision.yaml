@@ -14,8 +14,7 @@
     static_ip: "10.0.0.33"
     gateway: "10.0.0.1"
     dns_server: "10.0.0.1"
-    interface: "eth0"  # Change this to your interface name (eth0, ens33, etc.)
-    # ansible_common_remote_group: "{{ username }}"
+    interface: "eth0" 
     allow_world_readable_tmpfiles: true
     
   tasks:
