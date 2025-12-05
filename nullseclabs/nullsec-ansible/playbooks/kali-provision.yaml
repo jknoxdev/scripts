@@ -304,14 +304,14 @@
 #              dns-nameservers {{ dns_server }}
 #        backup: yes
 #
-    - name: Set DNS servers
-      copy:
-        dest: /etc/resolv.conf
-        content: |
-          nameserver {{ dns_server }}
-          nameserver 1.1.1.1
-          nameserver 9.9.9.9
-        backup: yes
+#    - name: Set DNS servers
+#      copy:
+#        dest: /etc/resolv.conf
+#        content: |
+#          nameserver {{ dns_server }}
+#          nameserver 1.1.1.1
+#          nameserver 9.9.9.9
+#        backup: yes
 
 #    - name: Generate SSH RSA key pair
 #      openssh_keypair:
