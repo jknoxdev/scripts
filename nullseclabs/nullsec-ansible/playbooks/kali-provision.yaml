@@ -404,12 +404,12 @@
         name: syncthing@{{ username }}
         enabled: yes
         state: started
-#
-#    - name: Update locate database
-#      command: updatedb
-#      async: 300
-#      poll: 0
-#
+
+    - name: Update locate database
+      command: updatedb
+      async: 300
+      poll: 0
+
 #    - name: Create OSCP quick reference cheatsheet
 #      copy:
 #        dest: "{{ home_dir }}/machs/OSCP-CHEATSHEET.md"
