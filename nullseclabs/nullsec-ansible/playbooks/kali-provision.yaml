@@ -387,23 +387,23 @@
 #        line: 'socks5 127.0.0.1 9050'
 #        backup: yes
 #
-#    - name: Enable and start PostgreSQL for Metasploit
-#      systemd:
-#        name: postgresql
-#        enabled: yes
-#        state: started
-#
-#    - name: Initialize Metasploit database
-#      shell: msfdb init
-#      args:
-#        creates: /usr/share/metasploit-framework/config/database.yml
-#      ignore_errors: yes
-#
-#    - name: Enable and start Syncthing
-#      systemd:
-#        name: syncthing@{{ username }}
-#        enabled: yes
-#        state: started
+    - name: Enable and start PostgreSQL for Metasploit
+      systemd:
+        name: postgresql
+        enabled: yes
+        state: started
+
+    - name: Initialize Metasploit database
+      shell: msfdb init
+      args:
+        creates: /usr/share/metasploit-framework/config/database.yml
+      ignore_errors: yes
+
+    - name: Enable and start Syncthing
+      systemd:
+        name: syncthing@{{ username }}
+        enabled: yes
+        state: started
 #
 #    - name: Update locate database
 #      command: updatedb
