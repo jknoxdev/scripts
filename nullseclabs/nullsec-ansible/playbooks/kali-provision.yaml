@@ -88,9 +88,7 @@
           - fzf
           - neovim
         state: present
-    
 
-     
     - name: Install Rust and Cargo
       shell: |
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -104,7 +102,8 @@
         line: 'source $HOME/.cargo/env'
         create: yes
       become: yes
-    
+      become_user: "{{ username }}"
+
     - name: Install Rust-based security tools
       shell: |
         source {{ home_dir }}/.cargo/env
@@ -122,8 +121,21 @@
         - cerbero
       become: yes
       ignore_errors: yes
+      become_user: "{{ username }}"
 
-#    - name: Install pipx system-wide (it's in apt)
+    - name: Add Cargo to PATH in shell configs
+      lineinfile:
+        path: "/home/{{ username }}/{{ item }}"
+        line: 'export PATH="$HOME/.cargo/bin:$PATH"'
+        state: present
+        create: yes
+      loop:
+        - .bashrc
+        - .zshrc
+      become: yes
+      become_user: "{{ username }}"
+
+      #    - name: Install pipx system-wide (it's in apt)
 #      apt:
 #        name: pipx
 #        state: present
