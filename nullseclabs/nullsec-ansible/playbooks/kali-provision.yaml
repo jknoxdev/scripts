@@ -9,7 +9,7 @@
   vars_files: 
     - ~/vaults/nullsec-ansible.yaml
   vars:
-    username: "{{ ansible_facts.user_id }}"
+    username: "jtk"
     home_dir: "~"
     static_ip: "10.0.0.33"
     gateway: "10.0.0.1"
@@ -82,6 +82,7 @@
           - netcat-traditional
           - socat
           - tcpdump
+          - nload
           - openvpn
           - proxychains4
           # Sync tools
@@ -124,18 +125,29 @@
       become: yes
       ignore_errors: yes
       become_user: "{{ username }}"
+    - name: Verify variables before updating shell configs
+      debug:
+        msg:
+          - "Username: {{ username }}"
+          - "Home directory: {{ home_dir }}"
+          - "Target bashrc: /home/{{ username }}/.bashrc"
+          - "Current user: {{ ansible_user_id }}"
+          - "Become user: {{ ansible_become_user | default('not set') }}"
 
-    - name: Add Cargo to PATH in shell configs
-      lineinfile:
+    - name: Configure Rust environment in shell configs
+      blockinfile:
         path: "/home/{{ username }}/{{ item }}"
-        line: 'export PATH="$HOME/.cargo/bin:$PATH"'
-        state: present
+        block: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK - Rust"
         create: yes
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: '0644'
       loop:
         - .bashrc
         - .zshrc
       become: yes
-      become_user: "{{ username }}"
 
       #    - name: Install pipx system-wide (it's in apt)
 #      apt:
@@ -171,14 +183,14 @@
 #      vars:
 #        allow_world_readable_tmpfiles: true
 #        
-#    - name: Ensure pipx and cargo are in PATH
-#      lineinfile:
-#        path: "{{ home_dir }}/.bashrc"
-#        line: "{{ item }}"
-#        create: yes
-#      loop:
-#        - 'export PATH="$PATH:{{ home_dir }}/.local/bin"'
-#        - 'export PATH="$PATH:{{ home_dir }}/.cargo/bin"'
+    - name: Ensure pipx and cargo are in PATH
+      lineinfile:
+        path: "{{ home_dir }}/.bashrc"
+        line: "{{ item }}"
+        create: yes
+      loop:
+        - 'export PATH="$PATH:{{ home_dir }}/.local/bin"'
+        - 'export PATH="$PATH:{{ home_dir }}/.cargo/bin"'
 
 
 
@@ -202,57 +214,6 @@
         dest: "{{ home_dir }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
         depth: 1
       become: no
-
-    - name: Configure zsh with Powerlevel10k
-      copy:
-        dest: "{{ home_dir }}/.zshrc"
-        owner: "{{ username }}"
-        content: |
-          # Path to oh-my-zsh installation
-          export ZSH="$HOME/.oh-my-zsh"
-          
-          # Powerlevel10k theme
-          ZSH_THEME="powerlevel10k/powerlevel10k"
-          
-          # Plugins
-          plugins=(
-            git
-            docker
-            kubectl
-            sudo
-            zsh-autosuggestions
-            zsh-syntax-highlighting
-          )
-          
-          source $ZSH/oh-my-zsh.sh
-          
-          # Rust environment
-          source $HOME/.cargo/env
-          
-          # Aliases
-          alias ll='exa -lah --icons'
-          alias ls='exa --icons'
-          alias cat='bat'
-          alias find='fd'
-          alias nse='ls /usr/share/nmap/scripts | grep'
-          alias serve='python3 -m http.server'
-          alias myip='curl ifconfig.me'
-          alias ports='netstat -tulanp'
-          alias listening='lsof -i -P | grep LISTEN'
-          
-          # Quick navigation
-          alias machs='cd ~/machs'
-          alias tools='cd ~/machs/tools'
-          alias loot='cd ~/machs/loot'
-          
-          # Metasploit
-          alias msfconsole='msfconsole -q'
-          
-          # RustScan quick alias
-          alias rs='rustscan'
-          
-          # To customize prompt, run `p10k configure`
-          [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
     - name: Change default shell to zsh
       user:
