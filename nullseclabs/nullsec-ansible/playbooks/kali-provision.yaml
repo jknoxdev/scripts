@@ -77,6 +77,7 @@
           - crackmapexec
           - impacket-scripts
           - cherrytree
+          - ranger
           # Network tools
           - netcat-traditional
           - socat
@@ -179,12 +180,7 @@
 #        - 'export PATH="$PATH:{{ home_dir }}/.local/bin"'
 #        - 'export PATH="$PATH:{{ home_dir }}/.cargo/bin"'
 
-    - name: Install Oh My Zsh
-      shell: |
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-      args:
-        creates: "{{ home_dir }}/.oh-my-zsh"
-      become: no
+
 
     - name: Clone Powerlevel10k theme
       git:
@@ -351,11 +347,8 @@
         creates: /usr/share/metasploit-framework/config/database.yml
       ignore_errors: yes
 
-    - name: Enable and start Syncthing
-      systemd:
-        name: syncthing@{{ username }}
-        enabled: yes
-        state: started
+
+
 
     - name: Update locate database
       command: updatedb
