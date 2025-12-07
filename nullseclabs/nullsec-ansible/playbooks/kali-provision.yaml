@@ -86,6 +86,7 @@
           # Sync tools
           - syncthing
           - fzf
+          - neovim
         state: present
     
 
@@ -281,6 +282,7 @@
         - machs/loot
         - machs/notes
         - .config/syncthing
+        - .config/nvim
 
     - name: Clone useful GitHub repositories
       git:
@@ -293,102 +295,37 @@
         - { repo: 'https://github.com/carlospolop/PEASS-ng.git', name: 'PEASS-ng' }
         - { repo: 'https://github.com/rebootuser/LinEnum.git', name: 'LinEnum' }
       ignore_errors: yes
-#
-#    - name: Configure static IP address
-#      copy:
-#        dest: "/etc/network/interfaces.d/{{ interface }}"
-#        content: |
-#          auto {{ interface }}
-#          iface {{ interface }} inet static
-#              address {{ static_ip }}
-#              netmask 255.255.255.0
-#              gateway {{ gateway }}
-#              dns-nameservers {{ dns_server }}
-#        backup: yes
-#
-#    - name: Set DNS servers
-#      copy:
-#        dest: /etc/resolv.conf
-#        content: |
-#          nameserver {{ dns_server }}
-#          nameserver 1.1.1.1
-#          nameserver 9.9.9.9
-#        backup: yes
 
-#    - name: Generate SSH RSA key pair
-#      openssh_keypair:
-#        path: "{{ home_dir }}/.ssh/id_rsa"
-#        type: rsa
-#        size: 4096
-#        owner: "{{ username }}"
-#        group: "{{ username }}"
-#        comment: "{{ username }}@kali-oscp"
-#      become: no
+    - name: Configure tmux
+      copy:
+        dest: "{{ home_dir }}/.tmux.conf"
+        owner: "{{ username }}"
+        content: |
+          # Tmux configuration for pentest workflow
+          set -g mouse on
+          set -g history-limit 10000
+          set -g base-index 1
+          setw -g pane-base-index 1
+          
+          # Easy config reload
+          bind-key r source-file ~/.tmux.conf \; display-message "Config reloaded"
+          
+          # Better split commands
+          bind | split-window -h
+          bind - split-window -v
+          
+          # Status bar
+          set -g status-style bg=black,fg=white
+          set -g status-left '#[fg=green][#S] '
+          set -g status-right '#[fg=yellow]%Y-%m-%d %H:%M'
 
-#    - name: Read SSH public key
-#      slurp:
-#        src: "{{ home_dir }}/.ssh/id_rsa.pub"
-#      register: ssh_public_key
-#      become: no
+    - name: Configure proxychains
+      lineinfile:
+        path: /etc/proxychains4.conf
+        regexp: '^socks4'
+        line: 'socks5 127.0.0.1 9050'
+        backup: yes
 
-#    - name: Configure tmux
-#      copy:
-#        dest: "{{ home_dir }}/.tmux.conf"
-#        owner: "{{ username }}"
-#        content: |
-#          # Tmux configuration for pentest workflow
-#          set -g mouse on
-#          set -g history-limit 10000
-#          set -g base-index 1
-#          setw -g pane-base-index 1
-#          
-#          # Easy config reload
-#          bind-key r source-file ~/.tmux.conf \; display-message "Config reloaded"
-#          
-#          # Better split commands
-#          bind | split-window -h
-#          bind - split-window -v
-#          
-#          # Status bar
-#          set -g status-style bg=black,fg=white
-#          set -g status-left '#[fg=green][#S] '
-#          set -g status-right '#[fg=yellow]%Y-%m-%d %H:%M'
-#
-#    - name: Configure Neovim
-#      copy:
-#        dest: "{{ home_dir }}/.config/nvim/init.vim"
-#        owner: "{{ username }}"
-#        content: |
-#          syntax on
-#          set number
-#          set relativenumber
-#          set tabstop=4
-#          set shiftwidth=4
-#          set expandtab
-#          set autoindent
-#          set mouse=a
-#          set clipboard=unnamedplus
-#          set termguicolors
-#          
-#          " Enable file type detection
-#          filetype plugin indent on
-#      become: no
-#
-#    - name: Ensure .config/nvim directory exists
-#      file:
-#        path: "{{ home_dir }}/.config/nvim"
-#        state: directory
-#        owner: "{{ username }}"
-#        group: "{{ username }}"
-#      become: no
-#
-#    - name: Configure proxychains
-#      lineinfile:
-#        path: /etc/proxychains4.conf
-#        regexp: '^socks4'
-#        line: 'socks5 127.0.0.1 9050'
-#        backup: yes
-#
     - name: Enable and start PostgreSQL for Metasploit
       systemd:
         name: postgresql
