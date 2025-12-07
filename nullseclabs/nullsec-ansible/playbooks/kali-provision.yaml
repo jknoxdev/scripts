@@ -95,6 +95,7 @@
       args:
         creates: "{{ home_dir }}/.cargo/bin/cargo"
       become: yes
+      become_user: "{{ username }}"
 
     - name: Source Rust environment
       lineinfile:
