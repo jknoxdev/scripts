@@ -133,20 +133,11 @@
         - tealdeer        # Faster tldr (command examples)
         - hyperfine       # Benchmarking tool
         # - watchexec       # Watch files and execute commands
-        - cargo-update    # Keep all cargo tools updated
-
+        # - cargo-update    # Keep all cargo tools updated
       become: yes
       ignore_errors: yes
       become_user: "{{ username }}"
-    - name: Verify variables before updating shell configs
-      debug:
-        msg:
-          - "Username: {{ username }}"
-          - "Home directory: {{ home_dir }}"
-          - "Target bashrc: /home/{{ username }}/.bashrc"
-          - "Current user: {{ ansible_user_id }}"
-          - "Become user: {{ ansible_become_user | default('not set') }}"
-
+    
     - name: Configure Rust environment in shell configs
       blockinfile:
         path: "/home/{{ username }}/{{ item }}"
