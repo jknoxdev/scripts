@@ -8,13 +8,7 @@
     - ~/vaults/nullsec-ansible.yaml
 
   tasks:
-
-    - name: Install Caffeine
-      apt:
-        name: caffeine
-        state: present
-        update_cache: yes
-
+    # Prevent system sleep at OS level
     - name: Mask systemd sleep targets
       systemd:
         name: "{{ item }}"
@@ -24,7 +18,21 @@
         - suspend.target
         - hibernate.target
 
-    - name: Ensure autostart directory exists
+    # Install Caffeine to prevent sleep/screensaver
+    - name: Install Caffeine
+      apt:
+        name: caffeine
+        state: present
+        update_cache: yes
+
+    # Remove screen lockers
+    - name: Remove light-locker
+      apt:
+        name: light-locker
+        state: absent
+
+    # Auto-start Caffeine on login
+    - name: Create autostart directory
       file:
         path: "/home/{{ ansible_facts.user_id }}/.config/autostart"
         state: directory
@@ -44,4 +52,3 @@
           Hidden=false
           NoDisplay=false
           X-GNOME-Autostart-enabled=true
-
