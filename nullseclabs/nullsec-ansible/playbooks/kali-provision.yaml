@@ -129,10 +129,10 @@
         # - dust            # Better du (disk usage)
         - zoxide          # Smarter cd (tracks frequently used dirs)
         - starship        # Amazing shell prompt
-        - gitui           # Terminal UI for git
+        # - gitui           # Terminal UI for git
         - tealdeer        # Faster tldr (command examples)
         - hyperfine       # Benchmarking tool
-        - watchexec       # Watch files and execute commands
+        # - watchexec       # Watch files and execute commands
         - cargo-update    # Keep all cargo tools updated
 
       become: yes
