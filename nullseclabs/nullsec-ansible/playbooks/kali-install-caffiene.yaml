@@ -52,3 +52,13 @@
           Hidden=false
           NoDisplay=false
           X-GNOME-Autostart-enabled=true
+
+    - name: Start Caffeine system tray notifier
+      command: caffeine
+      become_user: "{{ ansible_facts.user_id }}"
+      environment:
+        DISPLAY: ":0"
+        DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ ansible_facts.user_uid }}/bus"
+      async: 10
+      poll: 0
+      ignore_errors: yes
