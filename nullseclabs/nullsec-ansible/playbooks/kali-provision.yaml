@@ -87,7 +87,9 @@
           - syncthing
           - fzf
         state: present
+    
 
+     
     - name: Install Rust and Cargo
       shell: |
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -161,7 +163,6 @@
 #      loop:
 #        - 'export PATH="$PATH:{{ home_dir }}/.local/bin"'
 #        - 'export PATH="$PATH:{{ home_dir }}/.cargo/bin"'
-
 
     - name: Install Oh My Zsh
       shell: |
@@ -541,6 +542,8 @@
 #            cherrytree ~/machs/notes/oscp-notes.ctb
 #            ```
 #        dest: "{{ home_dir }}/machs/OSCP-CHEATSHEET.md"
+
+    - import_playbook: playbooks/kali-install-caffiene.yaml
 
     - name: Display completion message with SSH key
       debug:

@@ -1,0 +1,47 @@
+
+---
+# Disable automatic sleep/suspend in Kali Linux VM using Caffeine
+- name: Configure Kali VM for always-on panel display
+  hosts: kali
+  become: yes
+  vars_files: 
+    - ~/vaults/nullsec-ansible.yaml
+
+  tasks:
+
+    - name: Install Caffeine
+      apt:
+        name: caffeine
+        state: present
+        update_cache: yes
+
+    - name: Mask systemd sleep targets
+      systemd:
+        name: "{{ item }}"
+        masked: yes
+      loop:
+        - sleep.target
+        - suspend.target
+        - hibernate.target
+
+    - name: Ensure autostart directory exists
+      file:
+        path: "/home/{{ ansible_facts.user_id }}/.config/autostart"
+        state: directory
+        owner: "{{ ansible_facts.user_id }}"
+        mode: '0755'
+
+    - name: Enable Caffeine autostart
+      copy:
+        dest: "/home/{{ ansible_facts.user_id }}/.config/autostart/caffeine.desktop"
+        owner: "{{ ansible_facts.user_id }}"
+        mode: '0644'
+        content: |
+          [Desktop Entry]
+          Type=Application
+          Name=Caffeine
+          Exec=caffeine
+          Hidden=false
+          NoDisplay=false
+          X-GNOME-Autostart-enabled=true
+
