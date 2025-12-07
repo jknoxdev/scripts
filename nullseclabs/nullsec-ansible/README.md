@@ -5,31 +5,26 @@ Ansible playbooks and configurations for NullSec infrastructure and OSCP lab env
 
 ## Usage
 
-# copy SSH key to the VM
+build vm and assign a same-network ip address as 10.0.0.33 
 
-`ssh-copy-id kali@10.0.0.60`
+create ansible-vault inside of ~/vaults/nullsec-ansible.yaml  on host
 
-# Update inventory/hosts (remove the password line):
-cat > inventory/hosts << 'EOF'
-[kali]
-kali-vm ansible_host=10.0.0.60 ansible_user=kali
+uses key at ~/keys/nullsec-ansible-vault.pw 
 
-[kali:vars]
-ansible_python_interpreter=/usr/bin/python3
-EOF
+make sure machine is pingable, and has ssh-copy-id 
 
-# Run without password prompt
-ansible-playbook playbooks/kali-provision.yml
+`ssh-copy-id kali@10.0.0.33`
 
-### Provision Kali OSCP Box
-```bash
-ansible-playbook playbooks/kali-provision.yml
-```
+run the playbook once the ssh-key has been copied in!
 
-### Custom Variables
-Edit `inventory/group_vars/all.yml` to customize IP, gateway, DNS, etc.
+`ansible-playbook playbooks/kali-provision.yaml`
 
-## Directory Structure
-- `playbooks/` - Ansible playbooks
-- `inventory/` - Host inventories and variables
-- `roles/` - Reusable Ansible roles
+log in to machine and install caffeine
+`sudo apt install caffeine`
+
+run caffeine-indicator and make sure machine is caffinated:
+`caffeine-indicator`
+
+> click the coffee logo -> activate
+
+grab a coffee while the provisioner runs, estimated time around 30-40 minutes on mac m1-mini
