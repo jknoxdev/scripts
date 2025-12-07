@@ -412,7 +412,6 @@
       async: 300
       poll: 0
 
-    - import_playbook: playbooks/kali-install-caffiene.yaml
 
     - name: Display completion message with SSH key
       debug:
