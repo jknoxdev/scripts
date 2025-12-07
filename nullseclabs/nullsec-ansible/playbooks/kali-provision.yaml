@@ -10,7 +10,7 @@
     - ~/vaults/nullsec-ansible.yaml
   vars:
     username: "jtk"
-    home_dir: "~"
+    home_dir: "/home/jtk"
     static_ip: "10.0.0.33"
     gateway: "10.0.0.1"
     dns_server: "10.0.0.1"
@@ -244,15 +244,16 @@
         group: "{{ username }}"
         mode: '0755'
       loop:
-        - machs
-        - machs/tools
-        - machs/exploits
-        - machs/wordlists
-        - machs/scripts
-        - machs/loot
-        - machs/notes
-        - .config/syncthing
-        - .config/nvim
+        - "machs"
+        - "machs/tools"
+        - "machs/exploits"
+        - "machs/wordlists"
+        - "machs/scripts"
+        - "machs/loot"
+        - "machs/notes"
+        - ".config/syncthing"
+        - ".config/nvim"
+
 
     - name: Clone useful GitHub repositories
       git:
