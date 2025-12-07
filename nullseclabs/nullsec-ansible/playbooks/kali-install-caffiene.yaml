@@ -54,7 +54,7 @@
           X-GNOME-Autostart-enabled=true
 
     - name: Start Caffeine system tray notifier
-      command: caffeine
+      command: caffeine-indicator
       become_user: "{{ ansible_facts.user_id }}"
       environment:
         DISPLAY: ":0"
