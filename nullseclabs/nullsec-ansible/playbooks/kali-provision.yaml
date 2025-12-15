@@ -89,7 +89,6 @@
           - syncthing
           - fzf
           - neovim
-          - terminator
         state: present
 
     - name: Install Rust and Cargo
@@ -135,6 +134,7 @@
         - hyperfine       # Benchmarking tool
         # - watchexec       # Watch files and execute commands
         # - cargo-update    # Keep all cargo tools updated
+        - zellij          # my new favorite terminal emulator
       become: yes
       ignore_errors: yes
       become_user: "{{ username }}"
