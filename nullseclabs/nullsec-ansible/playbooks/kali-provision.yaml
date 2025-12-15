@@ -89,6 +89,7 @@
           - syncthing
           - fzf
           - neovim
+          - terminator
         state: present
 
     - name: Install Rust and Cargo
