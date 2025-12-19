@@ -89,6 +89,7 @@
           - syncthing
           - fzf
           - neovim
+          - alacritty
         state: present
 
     - name: Install Rust and Cargo
