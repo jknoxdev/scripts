@@ -90,6 +90,7 @@
           - fzf
           - neovim
           - alacritty
+          - ncdu
         state: present
 
     - name: Install Rust and Cargo
