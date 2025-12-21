@@ -11,9 +11,9 @@
   vars:
     username: "jtk"
     home_dir: "/home/jtk"
-    static_ip: "10.0.0.33"
-    gateway: "10.0.0.1"
-    dns_server: "10.0.0.1"
+    static_ip: "{{ ansible_host }}" 
+    gateway: "{{ ansible_host_gw }}" 
+    dns_server: "{{ ansible_host_dns }}"
     interface: "eth0" 
     allow_world_readable_tmpfiles: true
     

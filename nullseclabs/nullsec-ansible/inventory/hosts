@@ -1,9 +1,8 @@
-
 [kali]
-k2503 ansible_host=192.168.100.202 \
-      ansible_host_gw=192.168.100.1 \
-      ansible_host_dns=192.168.100.1 \
-      ansible_user=jtk \
+k2503 ansible_host=192.168.100.202
 
 [kali:vars]
+ansible_user=jtk
 ansible_python_interpreter=/usr/bin/python3
+ansible_host_gw=192.168.100.1
+ansible_host_dns=192.168.100.1
