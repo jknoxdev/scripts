@@ -8,3 +8,4 @@ dns_server: "{{ ansible_host_dns }}"
 network_interface: eth0
 workspace_name: machs
 ansible_become_password: "{{ vault_become_password }}"
+
